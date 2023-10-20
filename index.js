@@ -59,22 +59,6 @@ async function run() {
       res.send(result);
     })
 
-    // fetching Cart Data
-
-    app.get('/cart', async(req, res)=>{
-      const cursor = cartCollection.find();
-      const result = await cursor.toArray();
-      res.send(result)
-    })
-
-    // Posting cart data to database
-    app.post('/cart', async(req, res)=>{
-      const newProduct  = req.body;
-      const result = await cartCollection.insertOne(newProduct);
-      res.send(result);
-    })
-
-
     // data Post here
 
     app.post('/products', async(req, res)=>{
@@ -105,6 +89,38 @@ async function run() {
       const result = await productsCollection.updateOne(filter, Product, options);
       res.send(result);
 
+    })
+    
+
+    // Cart Related Api's here 
+
+    app.get('/cart', async(req, res)=>{
+      const cursor = cartCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+    })
+
+    app.get('/cart/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query = {_id: id};
+      const result = await cartCollection.findOne(query);
+      res.send(result);
+    })
+
+    // Posting cart data to database
+    app.post('/cart', async(req, res)=>{
+      const newProduct  = req.body;
+      const result = await cartCollection.insertOne(newProduct);
+      res.send(result);
+    })
+
+    // Deleting Cart Data From Database
+
+    app.delete('/cart/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query = {_id : id};
+      const result = await cartCollection.deleteOne(query);
+      res.send(result);
     })
     
     
