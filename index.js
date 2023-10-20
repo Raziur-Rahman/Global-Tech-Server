@@ -43,10 +43,27 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result)
     })
+
     app.get('/products/:brand', async(req, res)=>{
       const brand = req.params.brand;
       const cursor = productsCollection.find({BrandName :`${brand}`});
       const result = await cursor.toArray();
+      res.send(result);
+    })
+
+    app.get('/product/:id', async(req, res)=>{
+      const id = req.params.id;
+      console.log(id);
+      const query = {_id: new ObjectId(id)};
+      const result = await productsCollection.findOne(query);
+      res.send(result);
+    })
+
+    // data Post here
+
+    app.post('/products', async(req, res)=>{
+      const newProduct  = req.body;
+      const result = await productsCollection.insertOne(newProduct);
       res.send(result);
     })
     
