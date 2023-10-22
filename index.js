@@ -76,12 +76,12 @@ async function run() {
       const updatedProduct = req.body;
       const Product ={
         $set:{
-          name: updatedProduct.name,
+          ProductName: updatedProduct.ProductName,
           BrandName: updatedProduct.BrandName,
           ProductType: updatedProduct.ProductType,
           Price: updatedProduct.Price,
           Rating: updatedProduct.Rating,
-          Description: updatedProduct.Description,
+          ShortDescription: updatedProduct.ShortDescription,
           Image: updatedProduct.Image,
         }
       }
